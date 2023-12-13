@@ -4,14 +4,17 @@
     <label>Username</label>
     <input type="text" formControlName="username" />
   </div>
+  {{ signUpForm.get("username")?.errors | json }}
   <div class="field">
     <label>Password</label>
     <input type="text" formControlName="password" />
   </div>
+  {{ signUpForm.get("password")?.errors | json }}
   <div class="field">
     <label>Password Confirmation</label>
     <input type="text" formControlName="passwordConfirmation" />
   </div>
+  {{ signUpForm.get("passwordConfirmation")?.errors | json }}
 
   <button class="ui submit button primary">Submit</button>
 </form>
