@@ -17,4 +17,6 @@
   {{ signUpForm.get("passwordConfirmation")?.errors | json }}
 
   <button class="ui submit button primary">Submit</button>
+
+  {{ signUpForm.errors | json }}
 </form>
