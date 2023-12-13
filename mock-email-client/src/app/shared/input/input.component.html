@@ -1,6 +1,6 @@
 <div class="field">
   <label>{{ label }}</label>
-  <input [formControl]="control" />
+  <input [type]="inputType" [formControl]="control" />
   <div class="ui pointing red basic label" *ngIf="showErrors()">
     <p *ngIf="control.errors.required">Input is required</p>
     <p *ngIf="control.errors.minlength">
@@ -12,6 +12,7 @@
       Maxlength is {{ control.errors.maxlength.requiredLength }}
     </p>
     <p *ngIf="control.errors.pattern">Invalid format</p>
+    <!-- Note: The erros below come from the observable value not the form control itself -->
     <p *ngIf="control.errors.nonUniqueUsername">Username is taken</p>
     <p *ngIf="control.errors.noConnection">Unknown error has occured</p>
   </div>

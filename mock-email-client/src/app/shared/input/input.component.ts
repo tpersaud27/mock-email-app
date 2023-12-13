@@ -9,7 +9,10 @@ import { AbstractControl } from '@angular/forms';
 export class InputComponent {
   @Input() public control: AbstractControl | any;
   @Input() public label!: string;
+  @Input() public inputType!: string;
 
+  // Checks if the form control contains any of these errors
+  // Note: this syntax is object destructuring
   public showErrors() {
     const { dirty, touched, errors } = this.control;
     return dirty && touched && errors;

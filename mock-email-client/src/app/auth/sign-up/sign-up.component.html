@@ -1,22 +1,49 @@
 <h3>Create and Account</h3>
 <form class="ui form" [formGroup]="signUpForm">
-  <app-input label="Username" [control]="signUpForm.get('username')">{{
-    signUpForm.get("username")
-  }}</app-input>
-  {{ signUpForm.get("username")?.errors | json }}
+  <app-input
+    inputType="text"
+    label="Username"
+    [control]="signUpForm.get('username')"
+    >{{ signUpForm.get("username") }}</app-input
+  >
+  <!-- Used for debugging -->
+  <!-- {{ signUpForm.get("username")?.errors | json }} -->
 
-  <div class="field">
-    <label>Password</label>
-    <input type="text" formControlName="password" />
+  <app-input
+    inputType="password"
+    label="Password"
+    [control]="signUpForm.get('password')"
+    >{{ signUpForm.get("password") }}</app-input
+  >
+  <!-- Used for debugging -->
+  <!-- {{ signUpForm.get("password")?.errors | json }} -->
+
+  <app-input
+    inputType="password"
+    label="Password Confirmation"
+    [control]="signUpForm.get('passwordConfirmation')"
+    >{{ signUpForm.get("passwordConfirmation") }}</app-input
+  >
+  <!-- Used for debugging -->
+  <!-- {{ signUpForm.get("passwordConfirmation")?.errors | json }} -->
+
+  <!-- Errors associated to the entire form -->
+  <div
+    class="ui red basic label"
+    *ngIf="
+      signUpForm.get('password')!.touched &&
+      signUpForm.get('password')!.touched &&
+      signUpForm.errors
+    "
+  >
+    <p *ngIf="signUpForm.errors?.['passwordsDontMatch']">
+      Passwords must match
+    </p>
   </div>
-  {{ signUpForm.get("password")?.errors | json }}
-  <div class="field">
-    <label>Password Confirmation</label>
-    <input type="text" formControlName="passwordConfirmation" />
+  <div>
+    <button class="ui submit button primary">Submit</button>
+
+    <!-- Used for debugging -->
+    <!-- {{ signUpForm.errors | json }} -->
   </div>
-  {{ signUpForm.get("passwordConfirmation")?.errors | json }}
-
-  <button class="ui submit button primary">Submit</button>
-
-  {{ signUpForm.errors | json }}
 </form>
