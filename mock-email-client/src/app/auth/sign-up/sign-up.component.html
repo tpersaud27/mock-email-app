@@ -1,10 +1,10 @@
 <h3>Create and Account</h3>
 <form class="ui form" [formGroup]="signUpForm">
-  <div class="field">
-    <label>Username</label>
-    <input type="text" formControlName="username" />
-  </div>
+  <app-input label="Username" [control]="signUpForm.get('username')">{{
+    signUpForm.get("username")
+  }}</app-input>
   {{ signUpForm.get("username")?.errors | json }}
+
   <div class="field">
     <label>Password</label>
     <input type="text" formControlName="password" />

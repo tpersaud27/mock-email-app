@@ -1,1 +1,18 @@
-<p>input works!</p>
+<div class="field">
+  <label>{{ label }}</label>
+  <input [formControl]="control" />
+  <div class="ui pointing red basic label" *ngIf="showErrors()">
+    <p *ngIf="control.errors.required">Input is required</p>
+    <p *ngIf="control.errors.minlength">
+      Characters entered are {{ control.errors.minlength.actualLength }}.
+      Minlength is {{ control.errors.minlength.requiredLength }}
+    </p>
+    <p *ngIf="control.errors.maxlength">
+      Characters entered are {{ control.errors.maxlength.actualLength }}.
+      Maxlength is {{ control.errors.maxlength.requiredLength }}
+    </p>
+    <p *ngIf="control.errors.pattern">Invalid format</p>
+    <p *ngIf="control.errors.nonUniqueUsername">Username is taken</p>
+    <p *ngIf="control.errors.noConnection">Unknown error has occured</p>
+  </div>
+</div>

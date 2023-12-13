@@ -9,13 +9,7 @@ import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    AuthRoutingModule,
-    AuthModule,
-    HttpClientModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, AuthModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })
