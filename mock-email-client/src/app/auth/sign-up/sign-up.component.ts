@@ -1,4 +1,4 @@
-import { UserCredentials } from './../_interfaces/authInterfaces';
+import { SignUpCredentials } from './../_interfaces/authInterfaces';
 import { AuthService } from './../_services/auth.service';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -24,28 +24,36 @@ export class SignUpComponent {
       // Note the first set of validators are synchronous, the second set are asynchronous
       // Note: Angular first runs the synchronous validators then the asynchronous ones
       // The thought process here is that asynchronous validators are expensive operations so we should withold using them until absolutely needed
-      username: new FormControl(
-        '',
-        [
+      username: new FormControl('', {
+        nonNullable: true,
+        validators: [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(20),
           Validators.pattern(/^[a-z0-9]+$/),
         ],
-        [this.uniqueUserName.validate]
-      ),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(20),
-      ]),
-      passwordConfirmation: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(20),
-      ]),
+        asyncValidators: [this.uniqueUserName.validate],
+      }),
+      password: new FormControl('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(20),
+        ],
+      }),
+      passwordConfirmation: new FormControl('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(20),
+        ],
+      }),
     },
-    { validators: [this.matchPassword.validate] }
+    {
+      validators: [this.matchPassword.validate],
+    }
   );
 
   public onSubmit() {
@@ -53,14 +61,16 @@ export class SignUpComponent {
       return;
     }
 
-    this.authService.signUp(this.signUpForm.value).subscribe({
-      next: (response) => {
-        console.log(JSON.stringify(response));
-      },
-      error: () => {
-        alert('Error signing up');
-      },
-    });
+    this.authService
+      .signUp(this.signUpForm.value as SignUpCredentials)
+      .subscribe({
+        next: (response) => {
+          console.log(JSON.stringify(response));
+        },
+        error: () => {
+          alert('Error signing up');
+        },
+      });
 
     console.log(this.signUpForm.value);
   }

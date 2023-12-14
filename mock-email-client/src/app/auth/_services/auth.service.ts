@@ -1,6 +1,6 @@
 import {
+  SignUpCredentials,
   SignUpResponse,
-  UserCredentials,
   UsernameAvailableResponse,
 } from './../_interfaces/authInterfaces';
 import { HttpClient } from '@angular/common/http';
@@ -23,7 +23,7 @@ export class AuthService {
     );
   }
 
-  public signUp(credentials: any) {
+  public signUp(credentials: SignUpCredentials) {
     return this.http.post<SignUpResponse>(
       this.baseUrl + '/auth/signup',
       credentials
