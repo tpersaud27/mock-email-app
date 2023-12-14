@@ -66,9 +66,12 @@ export class SignUpComponent {
       .subscribe({
         next: (response) => {
           console.log(JSON.stringify(response));
+          // Navigate over to some other route or handle successful signup
         },
-        error: () => {
-          alert('Error signing up');
+        error: (error) => {
+          !error.status
+            ? this.signUpForm.setErrors({ noConnection: true })
+            : this.signUpForm.setErrors({ unknownError: true });
         },
       });
 

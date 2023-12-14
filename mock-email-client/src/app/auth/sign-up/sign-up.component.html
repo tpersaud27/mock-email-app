@@ -39,6 +39,11 @@
     <p *ngIf="signUpForm.errors?.['passwordsDontMatch']">
       Passwords must match
     </p>
+
+    <p *ngIf="signUpForm.errors?.['noConnection']">No connection!</p>
+    <p *ngIf="signUpForm.errors?.['unknownError']">
+      Oops something went wrong!
+    </p>
   </div>
   <div>
     <button class="ui submit button primary">Submit</button>
