@@ -1,3 +1,5 @@
+import { UserCredentials } from './../_interfaces/authInterfaces';
+import { AuthService } from './../_services/auth.service';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatchPassword } from '../_validators/match-password';
@@ -11,9 +13,11 @@ import { UniqueUsername } from '../_validators/unique-username';
 export class SignUpComponent {
   constructor(
     private matchPassword: MatchPassword,
-    private uniqueUserName: UniqueUsername
+    private uniqueUserName: UniqueUsername,
+    private authService: AuthService
   ) {}
 
+  //TODO: Add form getters
   public signUpForm = new FormGroup(
     {
       // The pattern validator to to ensure the user only enters alphanumeric characters
@@ -43,4 +47,21 @@ export class SignUpComponent {
     },
     { validators: [this.matchPassword.validate] }
   );
+
+  public onSubmit() {
+    if (this.signUpForm.invalid) {
+      return;
+    }
+
+    this.authService.signUp(this.signUpForm.value).subscribe({
+      next: (response) => {
+        console.log(JSON.stringify(response));
+      },
+      error: () => {
+        alert('Error signing up');
+      },
+    });
+
+    console.log(this.signUpForm.value);
+  }
 }

@@ -1,5 +1,5 @@
 <h3>Create and Account</h3>
-<form class="ui form" [formGroup]="signUpForm">
+<form class="ui form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
   <app-input
     inputType="text"
     label="Username"
