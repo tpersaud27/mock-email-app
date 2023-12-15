@@ -5,12 +5,15 @@ import {
 } from './../_interfaces/authInterfaces';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private baseUrl = 'https://api.angular-email.com';
+  // This behaviorSubject will emit a value of true when someone is signed in, otherwise the default value is false
+  public signedIn$ = new BehaviorSubject(false);
 
   constructor(private http: HttpClient) {}
 
@@ -24,9 +27,15 @@ export class AuthService {
   }
 
   public signUp(credentials: SignUpCredentials) {
-    return this.http.post<SignUpResponse>(
-      this.baseUrl + '/auth/signup',
-      credentials
-    );
+    return this.http
+      .post<SignUpResponse>(this.baseUrl + '/auth/signup', credentials)
+      .pipe(
+        // tap allows us to reach in and intercept a value and lets us to something
+        // it does not change the underlying value
+        // Note: if we have an error coming out of the observable it will skip over the tap operator
+        tap(() => {
+          this.signedIn$.next(true);
+        })
+      );
   }
 }
