@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -6,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./nav-header.component.css'],
 })
 export class NavHeaderComponent {
-  @Input() isSignedIn: boolean = false;
+  @Input() signedIn$ = new BehaviorSubject(false);
 }

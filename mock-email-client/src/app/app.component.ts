@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { AuthService } from './auth/_services/auth.service';
 
 @Component({
@@ -8,14 +9,11 @@ import { AuthService } from './auth/_services/auth.service';
 })
 export class AppComponent {
   title = 'mock-email-client';
+  public signedIn$: BehaviorSubject<boolean>;
 
-  public isSignedIn: boolean = false;
-
-  constructor(private authService: AuthService) {}
-
-  ngOnInit() {
-    this.authService.signedIn$.subscribe((signedIn: boolean) => {
-      this.isSignedIn = signedIn;
-    });
+  constructor(private authService: AuthService) {
+    this.signedIn$ = this.authService.signedIn$;
   }
+
+  ngOnInit() {}
 }
