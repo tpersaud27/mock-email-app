@@ -26,11 +26,10 @@ export class AuthService {
     );
   }
 
+  // Note: by default httpClient will ignore cookies so we need to add withCredentials or use a httpInterceptor
   public signUp(credentials: SignUpCredentials) {
     return this.http
-      .post<SignUpResponse>(this.baseUrl + '/auth/signup', credentials, {
-        withCredentials: true,
-      })
+      .post<SignUpResponse>(this.baseUrl + '/auth/signup', credentials)
       .pipe(
         // tap allows us to reach in and intercept a value and lets us to something
         // it does not change the underlying value
@@ -42,14 +41,10 @@ export class AuthService {
   }
 
   public checkIfUserIsSignedIn() {
-    return this.http
-      .get(this.baseUrl + '/auth/signedin', {
-        withCredentials: true,
+    return this.http.get(this.baseUrl + '/auth/signedin').pipe(
+      tap((response) => {
+        console.log(response);
       })
-      .pipe(
-        tap((response) => {
-          console.log(response);
-        })
-      );
+    );
   }
 }
