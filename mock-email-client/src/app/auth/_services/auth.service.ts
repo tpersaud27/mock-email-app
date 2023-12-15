@@ -28,7 +28,9 @@ export class AuthService {
 
   public signUp(credentials: SignUpCredentials) {
     return this.http
-      .post<SignUpResponse>(this.baseUrl + '/auth/signup', credentials)
+      .post<SignUpResponse>(this.baseUrl + '/auth/signup', credentials, {
+        withCredentials: true,
+      })
       .pipe(
         // tap allows us to reach in and intercept a value and lets us to something
         // it does not change the underlying value
@@ -40,10 +42,14 @@ export class AuthService {
   }
 
   public checkIfUserIsSignedIn() {
-    return this.http.get(this.baseUrl + '/auth/signedin').pipe(
-      tap((response) => {
-        console.log(response);
+    return this.http
+      .get(this.baseUrl + '/auth/signedin', {
+        withCredentials: true,
       })
-    );
+      .pipe(
+        tap((response) => {
+          console.log(response);
+        })
+      );
   }
 }
