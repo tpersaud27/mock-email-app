@@ -1,4 +1,5 @@
 import {
+  SignedInResponse,
   SignUpCredentials,
   SignUpResponse,
   UsernameAvailableResponse,
@@ -41,10 +42,14 @@ export class AuthService {
   }
 
   public checkIfUserIsSignedIn() {
-    return this.http.get(this.baseUrl + '/auth/signedin').pipe(
-      tap((response) => {
-        console.log(response);
-      })
-    );
+    return this.http
+      .get<SignedInResponse>(this.baseUrl + '/auth/signedin')
+      .pipe(
+        tap(({ authenticated }) => {
+          console.log({ authenticated });
+          // If the user is signed in, we want to emit a value of true for the behaviorsubject or if the user is not signed in we emit false. This value will come back from the API response
+          this.signedIn$.next(authenticated);
+        })
+      );
   }
 }
