@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults: 
       run: 
-        working-directory: ./mock-email-client
+        working-directory: ./mock-email-app
 
     strategy:
       matrix:
