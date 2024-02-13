@@ -35,6 +35,13 @@ jobs:
         env:
           CYPRESS_username: ${{secrets.CYPRESS.USERNAME}}
           CYPRESS_password: ${{secrets.CYPRESS.PASSWORD}}
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
     
       # - name: Build
       #   if: always()
