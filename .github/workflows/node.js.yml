@@ -41,16 +41,5 @@ jobs:
         working-directory: ./mock-email-client
         env:
           CYPRESS_username: ${{secrets.CYPRESS.USERNAME}}
-          CYPRESS_password: ${{secrets.CYPRESS.PASSWORD}}
-
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          working-directory: ./mock-email-client
-          name: cypress-screenshots
-          path: cypress/screenshots
-    
-      # - name: Build
-      #   if: always()
-      #   run: npm run build:ci
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
