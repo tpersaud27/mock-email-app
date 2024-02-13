@@ -48,6 +48,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with: 
           working-directory: ./mock-email-client
+          install: npm install --force
           build: npm run build
           start: npm run e2e
         env:
