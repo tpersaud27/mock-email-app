@@ -42,6 +42,13 @@ jobs:
       # - name: Unit Tests
       #   if: always()
       #   run: npm run test:ci
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build
+          start: npm start
+          browser: chrome
   
       - name: Cypress e2e Tests
         if: always()
