@@ -10,7 +10,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:ci": "ng build --prod",
-    "test:ci": "ng test --watch=false --browsers=ChromeHeadless"
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "private": true,
   "dependencies": {
@@ -38,6 +40,7 @@
     "@angular-eslint/template-parser": "16.3.1",
     "@angular/cli": "^16.2.4",
     "@angular/compiler-cli": "^16.2.0",
+    "@cypress/schematic": "^2.5.1",
     "@types/jasmine": "~4.3.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
