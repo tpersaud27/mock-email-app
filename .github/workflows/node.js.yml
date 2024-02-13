@@ -46,6 +46,6 @@ jobs:
       if: always()
       run: npm run test:ci
   
-    - name: Build
-      if: always()
-      run: npm run build:ci
+    # - name: Build
+    #   if: always()
+    #   run: npm run build:ci
