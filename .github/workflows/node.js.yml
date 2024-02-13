@@ -41,7 +41,6 @@ jobs:
           build: npm run build
           start: npm start
           run: npm run e2e
-          wait-on: 'http:localhost:4200'
           browser: chrome
           headless: true
           record: true
