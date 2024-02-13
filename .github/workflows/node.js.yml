@@ -40,21 +40,11 @@ jobs:
         with:
           working-directory: ./mock-email-client
           install: false
-          build: false
+          build: npm run build
           start: npm start
           record: true
         env:
           CYPRESS_username: ${{secrets.CYPRESS_USERNAME}}
-          CYPRESS_password: ${{secrets.CYPRESS_PASSWORD}}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
-      - name: Cypress tests
-        run: npm run e2e
-        if: always()
-        working-directory: ./mock-email-client
-        env:
-          CYPRESS_username: ${{secrets.CYPRESS.USERNAME}}
           CYPRESS_password: ${{secrets.CYPRESS_PASSWORD}}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
