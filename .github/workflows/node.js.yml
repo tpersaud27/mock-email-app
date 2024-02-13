@@ -11,7 +11,7 @@ on:
 
 jobs:
   start:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [16, 18]
