@@ -10,54 +10,50 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
+  ci:
+  
     runs-on: ubuntu-latest
     defaults: 
       run: 
         working-directory: ./mock-email-client
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-
+        
     steps:
       # 2. Checkout Repository
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-      with:
-        ref: main
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          ref: main
       
       # 3. Setup Node
-    - name: Setup Node 
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18.12.0'
+      - name: Setup Node 
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.12.0'
         
-    - name: Install Dependencies
-      run:  |
-        npm install --force
-        npm run build
+      - name: Install Dependencies
+        run:  |
+          npm install --force
+          npm run build
 
-    - name: Linting
-      if: always()
-      run: npm run lint
-      
-    - name: Unit Tests
-      if: always()
-      run: npm run test:ci
-
-    - name: Cypress e2e Tests
-      if: always()
-      uses: cypress-io/github-action@v6
-      with: 
-        working-directory: ./mock-email-client
-        build: npm run build
-        start: npm run e2e
-      env:
-        CYPRESS_username: ${{secrets.CYPRESS.USERNAME}}
-        CYPRESS_password: ${{secrets.CYPRESS.PASSWORD}}
+      - name: Linting
+        if: always()
+        run: npm run lint
+          
+      - name: Unit Tests
+        if: always()
+        run: npm run test:ci
   
-    # - name: Build
-    #   if: always()
-    #   run: npm run build:ci
+      - name: Cypress e2e Tests
+        if: always()
+        uses: cypress-io/github-action@v6
+        with: 
+          working-directory: ./mock-email-client
+          build: npm run build
+          start: npm run e2e
+        env:
+          CYPRESS_username: ${{secrets.CYPRESS.USERNAME}}
+          CYPRESS_password: ${{secrets.CYPRESS.PASSWORD}}
+    
+      # - name: Build
+      #   if: always()
+      #   run: npm run build:ci
