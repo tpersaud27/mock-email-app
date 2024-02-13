@@ -15,4 +15,5 @@ export default defineConfig({
     },
     specPattern: '**/*.cy.ts',
   },
+  projectId: 'vybtef',
 });
