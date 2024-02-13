@@ -38,8 +38,11 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
+          working-directory: ./mock-email-client
+          install: npm install --legacy-peer-deps
           build: npm run build
           start: npm start
+          record: true
         env:
           CYPRESS_username: ${{secrets.CYPRESS_USERNAME}}
           CYPRESS_password: ${{secrets.CYPRESS_PASSWORD}}
