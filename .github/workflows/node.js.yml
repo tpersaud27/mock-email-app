@@ -35,6 +35,12 @@ jobs:
           npm install --force
           npm run build
 
+      - name: Cypress run2
+        uses: cypress-io/github-action@v1
+        with:
+          build: npm run cy:run
+          wait-on: http://localhost:4200
+
       # - name: Linting
       #   if: always()
       #   run: npm run lint
