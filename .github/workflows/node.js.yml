@@ -51,6 +51,7 @@ jobs:
       if: always()
       uses: cypress-io/github-action@v6
       with: 
+        working-directory: ./mock-email-client
         start: npm run e2e
       env:
         CYPRESS_username: ${{secrets.CYPRESS.USERNAME}}
