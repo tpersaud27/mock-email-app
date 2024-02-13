@@ -49,7 +49,12 @@ jobs:
 
     - name: Cypress e2e Tests
       if: always()
-      run: npm run e2e
+      uses: cypress-io/github-action@v6
+      with: 
+        start: npm run e2e
+      env:
+        CYPRESS_username: ${{secrets.CYPRESS.USERNAME}}
+        CYPRESS_password: ${{secrets.CYPRESS.PASSWORD}}
   
     # - name: Build
     #   if: always()
