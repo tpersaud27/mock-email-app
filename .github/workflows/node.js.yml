@@ -39,13 +39,17 @@ jobs:
         npm install --force
         npm run build
 
-    - name: Lint
+    - name: Linting
       if: always()
       run: npm run lint
       
-    - name: Test
+    - name: Unit Tests
       if: always()
       run: npm run test:ci
+
+    - name: Cypress e2e Tests
+      if: always()
+      run: npm run e2e
   
     # - name: Build
     #   if: always()
