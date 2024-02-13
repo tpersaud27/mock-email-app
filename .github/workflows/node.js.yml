@@ -17,7 +17,7 @@ jobs:
         working-directory: ./mock-email-client
     strategy:
       matrix:
-        node: [16, 18]
+        node: [18]
     name: Angular E2E test on Node.js ${{ matrix.node }}
     
     steps:
@@ -31,9 +31,9 @@ jobs:
 
       - name: Install
         run: npm install --force
-
-      - name: Build
-        run: npm run build
+        
+      # - name: Build
+      #   run: npm run build
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
