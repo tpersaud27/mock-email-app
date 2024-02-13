@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install
-        run: npm install --legacy-peer-deps
+        run: npm install --force
 
       - name: Build
         run: npm run build
@@ -39,8 +39,8 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           working-directory: ./mock-email-client
-          install: npm install --legacy-peer-deps
-          build: npm run build
+          install: false
+          build: false
           start: npm start
           record: true
         env:
