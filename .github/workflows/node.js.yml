@@ -26,6 +26,7 @@ jobs:
       - name: Cypress tests
         uses: cypress-io/github-action@v5
         with:
+          working-directory: ./mock-email-client
           start: npm start
           wait-on: 'http://localhost:4200'
           browser: chrome
