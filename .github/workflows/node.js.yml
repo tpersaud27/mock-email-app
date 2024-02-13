@@ -10,26 +10,34 @@ on:
     branches: [ "main" ]
 
 jobs:
-  start:
+  ci:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [16, 18]
     name: Angular E2E test on Node.js ${{ matrix.node }}
+    
     steps:
+    
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Checkout
+          
+      - name: Checkout Repo
         uses: actions/checkout@v3
 
+      - name: Install
+        run: npm install --force
+
+      - name: Build
+        run: npm run build
+    
       - name: Cypress tests
         uses: cypress-io/github-action@v6
+        if: always()
         with:
           working-directory: ./mock-email-client
-          install: npm install --force
-          build: npm run build
-          start: npm start
+          start: npm run e2e
           wait-on: 'http://localhost:4200'
           browser: chrome
         env:
