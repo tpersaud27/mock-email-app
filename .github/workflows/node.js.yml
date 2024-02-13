@@ -39,11 +39,14 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           working-directory: ./mock-email-client
+          config-file: cypress.config.ts
           install: false
           build: npm run build
           start: npm start
           run: npm run e2e
           record: true
+          headless: true
+          browser: chrome
         env:
           CYPRESS_username: ${{secrets.CYPRESS_USERNAME}}
           CYPRESS_password: ${{secrets.CYPRESS_PASSWORD}}
