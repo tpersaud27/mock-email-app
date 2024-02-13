@@ -38,7 +38,6 @@ jobs:
           working-directory: ./mock-email-client
           config-file: cypress.config.ts
           install: false
-          build: npm run build
           start: npm start
           run: npm run e2e
           browser: chrome
