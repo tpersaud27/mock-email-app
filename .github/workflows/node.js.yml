@@ -39,9 +39,6 @@ jobs:
         run: npm run e2e
         if: always()
         working-directory: ./mock-email-client
-        wait-on: 'http://localhost:4200'
-        browser: chrome
-        headless: true
         env:
           CYPRESS_username: ${{secrets.CYPRESS.USERNAME}}
           CYPRESS_password: ${{secrets.CYPRESS.PASSWORD}}
