@@ -36,7 +36,7 @@ jobs:
           npm run build
 
       - name: Cypress run2
-        uses: cypress-io/github-action@v1
+        uses: cypress-io/github-action@v6
         with:
           build: npm run cypress:run
           wait-on: http://localhost:4200
