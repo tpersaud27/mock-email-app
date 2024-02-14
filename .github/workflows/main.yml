@@ -8,6 +8,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults: 
+      run: 
+       working-directory: ./mock-email-client
     steps:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -25,11 +28,14 @@ jobs:
         node-version: 18
 
     - name: Install dependencies
+      working-directory: ./mock-email-client
       run: npm install
 
     - name: Build
+      working-directory: ./mock-email-client
       run: npm run build:prod
 
     - name: Deploy
       if: success()
+      working-directory: ./mock-email-client
       run: aws s3 sync ./dist/mock-email-client s3://mock-email-client
