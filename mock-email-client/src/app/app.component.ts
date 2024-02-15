@@ -16,6 +16,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    sessionStorage.setItem('token', 'tommyToken');
     this.authService.checkIfUserIsSignedIn().subscribe(() => {});
   }
 }

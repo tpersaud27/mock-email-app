@@ -12,4 +12,8 @@ describe('Test Login Credentials', () => {
 
     cy.log('username ' + username + ' password ' + password);
   });
+
+  it('should get response from sessionStorage', () => {
+    cy.window().its('sessionStorage').invoke('getItem', 'token').should('exist');
+  });
 });
