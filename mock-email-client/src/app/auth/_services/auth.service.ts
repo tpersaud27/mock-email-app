@@ -39,7 +39,7 @@ export class AuthService {
   public signOut() {
     // API returns a cookie that clears out information.
     // Essentially forgets out login token
-    return this.http.post(this.baseUrl + 'auth/signout', {}).pipe(
+    return this.http.post(this.baseUrl + '/auth/signout', {}).pipe(
       tap(() => {
         // Notify application we are no longer signed in
         this.signedIn$.next(false);

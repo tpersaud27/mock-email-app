@@ -16,7 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(modifiedReq).pipe(
       tap((value) => {
         console.log(value);
-        // If the event object that is coming out of our observable is trying to tell us the request was just sent to the server
+        // If the event type that is emitted from observable is sent
         if (value.type === HttpEventType.Sent) {
           console.log('Request was sent to server.');
         }

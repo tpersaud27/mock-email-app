@@ -14,6 +14,16 @@ describe('Test Login Credentials', () => {
   });
 
   it('should get response from sessionStorage', () => {
+    cy.visit('/');
     cy.window().its('sessionStorage').invoke('getItem', 'token').should('exist');
+  });
+
+  it('should log token', () => {
+    cy.visit('/');
+    cy.window().then((win) => {
+      const token = win.sessionStorage.getItem('token');
+      cy.wrap(token).should('exist'); // or 'not.empty'
+      cy.log('token' + token);
+    });
   });
 });

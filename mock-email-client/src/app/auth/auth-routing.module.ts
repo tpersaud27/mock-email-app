@@ -2,10 +2,12 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SignOutComponent } from './sign-out/sign-out.component';
 
 const routes: Routes = [
   { path: '', component: SignInComponent },
   { path: 'signup', component: SignUpComponent },
+  { path: 'signout', component: SignOutComponent },
 ];
 
 @NgModule({
