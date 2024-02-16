@@ -31,6 +31,13 @@ export class SignInComponent {
       return;
     }
     // The value object of the form should have a username and password associated to it
-    this.authService.signIn(this.authForm.value as SignInCredentials).subscribe(() => {});
+    this.authService.signIn(this.authForm.value as SignInCredentials).subscribe({
+      next: (response: any) => {
+        console.log('response ', response);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 }
