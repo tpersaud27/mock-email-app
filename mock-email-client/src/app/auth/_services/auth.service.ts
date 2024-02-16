@@ -1,12 +1,13 @@
 import {
   SignedInResponse,
+  SignInCredentials,
   SignUpCredentials,
   SignUpResponse,
   UsernameAvailableResponse,
 } from './../_interfaces/authInterfaces';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, tap, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -43,6 +44,14 @@ export class AuthService {
       tap(() => {
         // Notify application we are no longer signed in
         this.signedIn$.next(false);
+      })
+    );
+  }
+
+  public signIn(credentials: SignInCredentials) {
+    return this.http.post(`${this.baseUrl}/auth/signin`, credentials).pipe(
+      tap(() => {
+        this.signedIn$.next(true);
       })
     );
   }

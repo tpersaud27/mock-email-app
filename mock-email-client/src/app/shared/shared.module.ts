@@ -7,12 +7,7 @@ import { SharedRoutingModule } from './shared-routing.module';
 
 @NgModule({
   declarations: [InputComponent, NavHeaderComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SharedRoutingModule,
-  ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedRoutingModule],
   exports: [InputComponent, NavHeaderComponent],
 })
 export class SharedModule {}

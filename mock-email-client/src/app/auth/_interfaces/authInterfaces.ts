@@ -16,3 +16,8 @@ export interface SignedInResponse {
   authenticated: boolean;
   username: string;
 }
+
+export interface SignInCredentials {
+  username: string;
+  password: string;
+}
