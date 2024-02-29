@@ -11,9 +11,11 @@
 
 URL: <https://api.angular-email.com>
 
-| Path             | Method | Body  | Description   |
-| /auth/signup     | POST   |       |               |
-| /auth/signin     | POST   |       |               |
-| /auth/username   | POST   |       |               |
-| /auth/signedin   | GET    |       |               |
+| Path             | Method | Body  | Description        |
+| :---             | :---   | :---  | :---               |
+| /auth/signup     | POST   |       |                    |
+| /auth/signin     | POST   |       |                    |
+| /auth/username   | POST   |       |                    |
+| /auth/signedin   | GET    |       |                    |
 | /auth/signout    | POST   |  {}   | Signs the user out |
+
