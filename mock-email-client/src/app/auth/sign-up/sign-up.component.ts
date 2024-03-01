@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatchPassword } from '../_validators/match-password';
 import { UniqueUsername } from '../_validators/unique-username';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,7 +15,8 @@ export class SignUpComponent {
   constructor(
     private matchPassword: MatchPassword,
     private uniqueUserName: UniqueUsername,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   //TODO: Add form getters
@@ -36,19 +38,11 @@ export class SignUpComponent {
       }),
       password: new FormControl('', {
         nonNullable: true,
-        validators: [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(20),
-        ],
+        validators: [Validators.required, Validators.minLength(4), Validators.maxLength(20)],
       }),
       passwordConfirmation: new FormControl('', {
         nonNullable: true,
-        validators: [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(20),
-        ],
+        validators: [Validators.required, Validators.minLength(4), Validators.maxLength(20)],
       }),
     },
     {
@@ -61,19 +55,18 @@ export class SignUpComponent {
       return;
     }
 
-    this.authService
-      .signUp(this.signUpForm.value as SignUpCredentials)
-      .subscribe({
-        next: (response) => {
-          console.log(JSON.stringify(response));
-          // Navigate over to some other route or handle successful signup
-        },
-        error: (error) => {
-          !error.status
-            ? this.signUpForm.setErrors({ noConnection: true })
-            : this.signUpForm.setErrors({ unknownError: true });
-        },
-      });
+    this.authService.signUp(this.signUpForm.value as SignUpCredentials).subscribe({
+      next: (response) => {
+        console.log(JSON.stringify(response));
+        // Navigate over to some other route or handle successful signup
+        this.router.navigateByUrl('/inbox');
+      },
+      error: (error) => {
+        !error.status
+          ? this.signUpForm.setErrors({ noConnection: true })
+          : this.signUpForm.setErrors({ unknownError: true });
+      },
+    });
 
     console.log(this.signUpForm.value);
   }

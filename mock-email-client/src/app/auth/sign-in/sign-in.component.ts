@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/_services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
@@ -9,7 +10,7 @@ import { SignInCredentials } from '../_interfaces/authInterfaces';
   styleUrls: ['./sign-in.component.css'],
 })
 export class SignInComponent {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   public authForm = new FormGroup({
     username: new FormControl('', {
@@ -34,6 +35,7 @@ export class SignInComponent {
     this.authService.signIn(this.authForm.value as SignInCredentials).subscribe({
       next: (response: any) => {
         console.log('sign in response ', response);
+        this.router.navigateByUrl('/inbox');
       },
       error: ({ error }) => {
         console.log('sign in error response', error);
