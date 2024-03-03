@@ -15,7 +15,7 @@ import { BehaviorSubject, tap, Observable } from 'rxjs';
 export class AuthService {
   private baseUrl = 'https://api.angular-email.com';
   // This behaviorSubject will emit a value of true when someone is signed in, otherwise the default value is false
-  public signedIn$ = new BehaviorSubject(false);
+  public signedIn$ = new BehaviorSubject<boolean | null>(null);
 
   constructor(private http: HttpClient) {}
 

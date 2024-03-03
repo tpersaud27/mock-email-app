@@ -9,7 +9,7 @@ import { AuthService } from './auth/_services/auth.service';
 })
 export class AppComponent {
   title = 'mock-email-client';
-  public signedIn$: BehaviorSubject<boolean>;
+  public signedIn$: BehaviorSubject<boolean | null>;
 
   constructor(private authService: AuthService) {
     this.signedIn$ = this.authService.signedIn$;

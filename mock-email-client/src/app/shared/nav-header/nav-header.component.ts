@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./nav-header.component.css'],
 })
 export class NavHeaderComponent {
-  @Input() signedIn$ = new BehaviorSubject(false);
+  @Input() signedIn$ = new BehaviorSubject<boolean | null>(false);
 }
