@@ -7,8 +7,6 @@ import { EmailCreateComponent } from './email-create/email-create.component';
 import { EmailReplyComponent } from './email-reply/email-reply.component';
 import { EmailIndexComponent } from './email-index/email-index.component';
 import { EmailShowComponent } from './email-show/email-show.component';
-import { EmailComponent } from './_services/email/email.component';
-
 
 @NgModule({
   declarations: [
@@ -17,11 +15,7 @@ import { EmailComponent } from './_services/email/email.component';
     EmailReplyComponent,
     EmailIndexComponent,
     EmailShowComponent,
-    EmailComponent
   ],
-  imports: [
-    CommonModule,
-    InboxRoutingModule
-  ]
+  imports: [CommonModule, InboxRoutingModule],
 })
-export class InboxModule { }
+export class InboxModule {}

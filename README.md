@@ -28,3 +28,6 @@ URL: <https://api.angular-email.com>
 | /auth/username   | POST   |  { username: string }| Check to see if a username is already in use |
 | /auth/signedin   | GET    |  | Check to see if the user is currently signed in|
 | /auth/signout    | POST   |  {}                                                                            | Signs the user out |
+| /emails | GET | | Gets a list of all emails received by the current users |
+| /emails/:id | GET | | Gets a specific email with the given ID |
+| /emails | POST | {subject: string, text: string, to: string, from: string} | Sends an email |
