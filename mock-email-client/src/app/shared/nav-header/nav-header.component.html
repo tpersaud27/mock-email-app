@@ -1,6 +1,6 @@
 <div class="ui container">
   <div class="ui secondary pointing menu">
-    <a routerLink="/" class="item">Mock Email - v%version%</a>
+    <a routerLink="/" class="item">Mock Email - v{{ displayVersion }}</a>
 
     <div class="right menu">
       <ng-container *ngIf="signedIn$ | async">
