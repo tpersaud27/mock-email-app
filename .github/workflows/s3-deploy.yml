@@ -38,6 +38,10 @@ jobs:
     - name: Install dependencies
       working-directory: ./mock-email-client
       run: npm install --force
+     
+    - name: Build
+      working-directory: ./mock-email-client
+      run: npm run build:prod
 
     - name: Extract branch name
       shell: bash
@@ -55,10 +59,6 @@ jobs:
     - name: Version Update in Index.html file
       working-directory: ./mock-email-client
       run: sed -i -e "s/%version%/${{ env.DISPLAY_VERSION }}/" dist/index.html
-        
-    - name: Build
-      working-directory: ./mock-email-client
-      run: npm run build:prod
 
     - name: Deploy
       if: success()
