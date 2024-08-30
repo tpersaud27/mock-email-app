@@ -57,7 +57,7 @@ jobs:
         fi
   
     - name: Version Update in Index.html file
-      run: sed -i -e "s/%version%/${{ env.DISPLAY_VERSION }}/" ./mock-email-client/dist/index.html
+      run: sed -i -e "s/%version%/${{ env.DISPLAY_VERSION }}/" dist/mock-email-client/index.html
 
     - name: Deploy
       if: success()
