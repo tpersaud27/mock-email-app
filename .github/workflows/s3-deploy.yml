@@ -53,6 +53,7 @@ jobs:
         fi
   
     - name: Version Update in Index.html file
+      working-directory: ./mock-email-client
       run: sed -i -e "s/%version%/${{ env.DISPLAY_VERSION }}/" dist/index.html
         
     - name: Build
