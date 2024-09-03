@@ -1,3 +1,4 @@
 export const environment = {
-  DISPLAY_VERSION: '1.0.0',
+  production: false,
+  DISPLAY_VERSION: process.env['DISPLAY_VERSION'],
 };
