@@ -1,6 +1,9 @@
 name: S3 Deploy
 
 on:
+  push:
+     tags:
+     - 'v*.*.*'
   workflow_dispatch:
     inputs:
       choice:
@@ -11,8 +14,6 @@ on:
         - prod
         required: false
       Version:
-        required: false
-      tags:
         required: false
         
 jobs:
@@ -49,7 +50,6 @@ jobs:
         echo "Tag ${{ steps.tags.outputs.tag }}"
         echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
         echo "Tag name from github.ref_name: ${{  github.ref_name }}"
-        echo "Tag from input ${{ github.event.inputs.tags }}"
       env:
         GIT_TAG: ${{ steps.tags.outputs.tag }}
      
