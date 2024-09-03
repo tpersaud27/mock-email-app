@@ -14,8 +14,10 @@ on:
         - prod
         required: false
       Tag:
-        type: tags
+        type: choice
         description: Select the tag
+        options:
+          - tags
       Version:
         required: false
         
