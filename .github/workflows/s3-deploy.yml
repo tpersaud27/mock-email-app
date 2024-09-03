@@ -35,26 +35,15 @@ jobs:
         with:
           node-version: 18
 
-      - name: Extract Branch Name
-        shell: bash
-        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-        id: extract_branch
-
-      - name: Extract Github Tag Value
-        run: |
-          echo "GIT_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - name: Extract branch or tag that received dispatch
+        run: echo "GIT_REF=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: Get Version Value
         run: |
-          if [[${{env.GIT_TAG}} =~ ^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Tag $GIT_TAG exists"
-            echo "DISPLAY_VERSION=${{ env.GIT_TAG }}" >> $GITHUB_ENV
-          elif [ "${{ github.event.inputs.Version }}" ]; then
-            echo "Tag does not exist, using inputted version number"
+          if [ "${{ github.event.inputs.Version }}" ]; then
             echo "DISPLAY_VERSION=${{ inputs.Version }}" >> $GITHUB_ENV
           else
-            echo "Neither version or tag exists, using branch name"
-            echo "DISPLAY_VERSION=${{ steps.extract_branch.outputs.branch }}" >> $GITHUB_ENV
+            echo "DISPLAY_VERSION=${{ env.GIT_REF }}" >> $GITHUB_ENV
           fi
 
       - name: Install dependencies
