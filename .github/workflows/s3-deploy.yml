@@ -50,11 +50,16 @@ jobs:
     - name: Install dependencies
       working-directory: ./mock-email-client
       run: npm install --force
+      
+    - name: Replace environment variables
+      run: ./replace-env.sh
+      env:
+        DISPLAY_VERSION: ${{ env.DISPLAY_VERSION }}
      
     - name: Build
       working-directory: ./mock-email-client
-      env:
-        DISPLAY_VERSION: ${{ env.DISPLAY_VERSION }}
+      # env:
+      #   DISPLAY_VERSION: ${{ env.DISPLAY_VERSION }}
       run: npm run build:prod
 
     - name: Version Update in Index.html file
