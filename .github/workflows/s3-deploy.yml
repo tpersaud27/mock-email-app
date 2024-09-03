@@ -54,6 +54,7 @@ jobs:
         else
           echo "DISPLAY_VERSION=${{ steps.extract_branch.outputs.branch }}" >> $GITHUB_ENV
         fi
+        
     - name: Install dependencies
       working-directory: ./mock-email-client
       run: npm install --force
