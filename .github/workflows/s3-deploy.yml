@@ -38,6 +38,9 @@ jobs:
       - name: Extract branch or tag that received dispatch
         run: echo "GIT_REF=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
+      - name: Test github.ref
+        run: echo ${{ github.ref }}
+
       - name: Get Version Value
         run: |
           if [ "${{ github.event.inputs.Version }}" ]; then
