@@ -52,19 +52,14 @@ jobs:
       run: npm install --force
       
     - name: Replace environment variables
-      working-directory: ./mock-email-client
-      run: replace-env.sh
-      env:
-        DISPLAY_VERSION: ${{ env.DISPLAY_VERSION }}
-     
+      run: |
+        sed -i "s|\${TITLE}|${{ env.DISPLAY_VERSION }}|g" src/environments/environment.ts
+        sed -i "s|\${DISPLAY_VERSION}|${{ env.DISPLAY_VERSION }}|g" src/environments/environment.ts
+        sed -i -e "s/%version%/${{ env.DISPLAY_VERSION }}/" dist/mock-email-client/index.html
+
     - name: Build
       working-directory: ./mock-email-client
-      # env:
-      #   DISPLAY_VERSION: ${{ env.DISPLAY_VERSION }}
       run: npm run build:prod
-
-    - name: Version Update in Index.html file
-      run: sed -i -e "s/%version%/${{ env.DISPLAY_VERSION }}/" dist/mock-email-client/index.html
 
     - name: Deploy
       if: success()
