@@ -41,16 +41,17 @@ jobs:
         id: extract_branch
 
       - name: Extract Tag Value
+        shell: bash
         id: extract_tag
         run: |
           echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-        env:
-          GIT_TAG: ${{ steps.extract_tag.outputs.tag }}
 
       - name: Get Version Value
+        env:
+          GIT_TAG: ${{steps.extract_tag.outputs.tag }}
         run: |
-          echo: "${env.GIT_TAG}"
-          if ["${env.GIT_TAG}"]; then
+          echo: "${{env.GIT_TAG}}"
+          if ["${{env.GIT_TAG}}"]; then
             echo "Tag ${TAG} exists"
             echo "DISPLAY_VERSION=${{ env.GIT_TAG }}" >> $GITHUB_ENV
           elif [ "${{ github.event.inputs.Version }}" ]; then
