@@ -39,10 +39,17 @@ jobs:
       shell: bash
       run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
       id: extract_branch
+
+    - name: Get Github Tag
+      run:
+        echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
      
     - name: Get version value
       run: |
-        if [ "${{ github.event.inputs.Version }}" ]; then
+        if [ $(git tag -l "${TAG}") ]; then
+          echo "Tag ${TAG} exists"
+          echo "DISPLAY_VERSION=${{ env.GIT_TAG }}" >> $GITHUB_ENV
+        elif [ "${{ github.event.inputs.Version }}" ]; then
           echo "DISPLAY_VERSION=${{ inputs.Version }}" >> $GITHUB_ENV
         else
           echo "DISPLAY_VERSION=${{ steps.extract_branch.outputs.branch }}" >> $GITHUB_ENV
