@@ -40,15 +40,22 @@ jobs:
       run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
       id: extract_branch
 
-    - name: Extract Tag Value
-      id: tags
-      run: | 
-        echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-        echo "Tag ${{ env.GIT_TAG }}"
-        echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
-        echo "Tag name from github.ref_name: ${{  github.ref_name }}"
+    # - name: Extract Tag Value
+    #   id: tags
+    #   run: | 
+    #     echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+    #     echo "Tag ${{ env.GIT_TAG }}"
+    #     echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
+    #     echo "Tag name from github.ref_name: ${{  github.ref_name }}"
       # env:
       #   GIT_TAG: ${{ steps.tags.outputs.tag }}
+    - name: Set env
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+    - name: Test
+      run: |
+        echo $RELEASE_VERSION
+        echo "Tag name ${{ env.RELEASE_VERSION }}" 
+
      
     - name: Get Version Value
       run: |
