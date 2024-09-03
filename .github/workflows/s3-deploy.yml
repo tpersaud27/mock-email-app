@@ -40,22 +40,20 @@ jobs:
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/*/}}" >> $GITHUB_OUTPUT
         id: extract_branch
 
-      - name: Extract Tag Value
-        run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
+      # - name: Extract Tag Value
+      #   run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
 
-      - name: Check value
+      - name: Set env
+        run: echo "GIT_TAG=${GITHUB_REF#refs/tags/*/}" >> $GITHUB_ENV
+      - name: Test
         run: |
           echo $GIT_TAG
-
-        # shell: bash
-        # id: extract_tag
-        # run: |
-        #   echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+          echo ${{ env.GIT_TAG }}
 
       - name: Get Version Value
         run: |
           if ["${{env.GIT_TAG}}"]; then
-            echo "Tag ${GIT_TAG} exists"
+            echo "Tag $GIT_TAG exists"
             echo "DISPLAY_VERSION=${{ env.GIT_TAG }}" >> $GITHUB_ENV
           elif [ "${{ github.event.inputs.Version }}" ]; then
             echo "Tag does not exist, using inputted version number"
