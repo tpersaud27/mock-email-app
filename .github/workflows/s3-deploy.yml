@@ -42,7 +42,16 @@ jobs:
 
       - name: Extract Github Tag Value
         run: |
-          echo "GIT_TAG=${GITHUB_REF#refs/refs/tags/}" >> $GITHUB_ENV
+          echo "GIT_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      # - name: Set output
+      #   id: vars
+      #   run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      # - name: Check output
+      #   env:
+      #     GIT_TAG: ${{ steps.vars.outputs.tag }}
+      #   run: |
+      #     echo $GIT_TAG
+      #     echo ${{ steps.vars.outputs.tag }}
 
       - name: Get Version Value
         run: |
