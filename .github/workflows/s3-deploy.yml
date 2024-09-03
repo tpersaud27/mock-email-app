@@ -7,84 +7,83 @@ on:
         type: choice
         description: Select the environment
         options:
-        - dev
-        - prod
+          - dev
+          - prod
         required: false
       Version:
         required: false
-        
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    defaults: 
-      run: 
-       working-directory: ./mock-email-client
+    defaults:
+      run:
+        working-directory: ./mock-email-client
     steps:
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
-        
-    - name: Extract branch name
-      shell: bash
-      run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-      id: extract_branch
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-    # - name: Extract Tag Value
-    #   id: tags
-    #   run: | 
-    #     echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-    #     echo "Tag ${{ env.GIT_TAG }}"
-    #     echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
-    #     echo "Tag name from github.ref_name: ${{  github.ref_name }}"
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/*/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      # - name: Extract Tag Value
+      #   id: tags
+      #   run: |
+      #     echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      #     echo "Tag ${{ env.GIT_TAG }}"
+      #     echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
+      #     echo "Tag name from github.ref_name: ${{  github.ref_name }}"
       # env:
       #   GIT_TAG: ${{ steps.tags.outputs.tag }}
-    - name: Set env
-      run: echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-    - name: Test
-      run: |
-        echo $GIT_TAG
-        echo "Tag name ${{ env.GIT_TAG }}" 
+      - name: Set env
+        run: echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Test
+        run: |
+          echo $GIT_TAG
+          echo "Tag name ${{ env.GIT_TAG }}"
 
-     
-    - name: Get Version Value
-      run: |
-        echo "Tag ${GIT_TAG}"
-        if ["${env.GIT_TAG}"]; then
-          echo "Tag ${TAG} exists"
-          echo "DISPLAY_VERSION=${{ env.GIT_TAG }}" >> $GITHUB_ENV
-        elif [ "${{ github.event.inputs.Version }}" ]; then
-          echo "Tag does not exist, using inputted version number"
-          echo "DISPLAY_VERSION=${{ inputs.Version }}" >> $GITHUB_ENV
-        else
-          echo "Neither version or tag exists, using branch name"
-          echo "DISPLAY_VERSION=${{ steps.extract_branch.outputs.branch }}" >> $GITHUB_ENV
-        fi
-        
-    - name: Install dependencies
-      working-directory: ./mock-email-client
-      run: npm install --force
-      
-    - name: Replace environment variables
-      run: |
-        sed -i "s|\${TITLE}|${{ env.DISPLAY_VERSION }}|g" src/environments/environment.ts
-        sed -i "s|\${DISPLAY_VERSION}|${{ env.DISPLAY_VERSION }}|g" src/environments/environment.ts
-    
-    - name: Build
-      working-directory: ./mock-email-client
-      run: npm run build:prod
+      - name: Get Version Value
+        run: |
+          echo "Tag ${GIT_TAG}"
+          if ["${env.GIT_TAG}"]; then
+            echo "Tag ${TAG} exists"
+            echo "DISPLAY_VERSION=${{ env.GIT_TAG }}" >> $GITHUB_ENV
+          elif [ "${{ github.event.inputs.Version }}" ]; then
+            echo "Tag does not exist, using inputted version number"
+            echo "DISPLAY_VERSION=${{ inputs.Version }}" >> $GITHUB_ENV
+          else
+            echo "Neither version or tag exists, using branch name"
+            echo "DISPLAY_VERSION=${{ steps.extract_branch.outputs.branch }}" >> $GITHUB_ENV
+          fi
 
-    - name: Deploy
-      if: success()
-      working-directory: ./mock-email-client
-      run: aws s3 sync ./dist/mock-email-client s3://mock-email-client
+      - name: Install dependencies
+        working-directory: ./mock-email-client
+        run: npm install --force
+
+      - name: Replace environment variables
+        run: |
+          sed -i "s|\${TITLE}|${{ env.DISPLAY_VERSION }}|g" src/environments/environment.ts
+          sed -i "s|\${DISPLAY_VERSION}|${{ env.DISPLAY_VERSION }}|g" src/environments/environment.ts
+
+      - name: Build
+        working-directory: ./mock-email-client
+        run: npm run build:prod
+
+      - name: Deploy
+        if: success()
+        working-directory: ./mock-email-client
+        run: aws s3 sync ./dist/mock-email-client s3://mock-email-client
