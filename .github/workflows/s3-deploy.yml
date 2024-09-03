@@ -53,7 +53,7 @@ jobs:
       
     - name: Replace environment variables
       working-directory: ./mock-email-client
-      run: ./replace-env.sh
+      run: replace-env.sh
       env:
         DISPLAY_VERSION: ${{ env.DISPLAY_VERSION }}
      
