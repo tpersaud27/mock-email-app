@@ -12,6 +12,8 @@ on:
         required: false
       Version:
         required: false
+      tags:
+        required: false
         
 jobs:
   deploy:
