@@ -49,6 +49,7 @@ jobs:
 
       - name: Get Version Value
         run: |
+          echo: "${env.GIT_TAG}"
           if ["${env.GIT_TAG}"]; then
             echo "Tag ${TAG} exists"
             echo "DISPLAY_VERSION=${{ env.GIT_TAG }}" >> $GITHUB_ENV
