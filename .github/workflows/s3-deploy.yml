@@ -1,9 +1,6 @@
 name: S3 Deploy
 
 on:
-  push:
-    tags:
-    - '*'
   workflow_dispatch:
     inputs:
       choice:
@@ -13,11 +10,6 @@ on:
         - dev
         - prod
         required: false
-      Tag:
-        type: choice
-        description: Select the tag
-        options:
-          - tags
       Version:
         required: false
         
@@ -51,17 +43,17 @@ jobs:
     - name: Extract Tag Value
       id: tags
       run: | 
-        echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-        echo "Tag ${{ steps.tags.outputs.tag }}"
+        echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+        echo "Tag ${{ env.GIT_TAG }}"
         echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
         echo "Tag name from github.ref_name: ${{  github.ref_name }}"
-      env:
-        GIT_TAG: ${{ steps.tags.outputs.tag }}
+      # env:
+      #   GIT_TAG: ${{ steps.tags.outputs.tag }}
      
     - name: Get Version Value
       run: |
-        echo "Tag ${TAG}"
-        if [ $(git tag -l "${TAG}") ]; then
+        echo "Tag ${GIT_TAG}"
+        if [ $(git tag -l "${env.GIT_TAG}") ]; then
           echo "Tag ${TAG} exists"
           echo "DISPLAY_VERSION=${{ env.GIT_TAG }}" >> $GITHUB_ENV
         elif [ "${{ github.event.inputs.Version }}" ]; then
