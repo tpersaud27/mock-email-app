@@ -2,8 +2,8 @@ name: S3 Deploy
 
 on:
   push:
-     tags:
-     - 'v*.*.*'
+    tags:
+    - '*'
   workflow_dispatch:
     inputs:
       choice:
@@ -13,6 +13,9 @@ on:
         - dev
         - prod
         required: false
+      Tag:
+        type: tags
+        description: Select the tag
       Version:
         required: false
         
