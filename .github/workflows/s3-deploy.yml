@@ -54,11 +54,11 @@ jobs:
     - name: Build
       working-directory: ./mock-email-client
       env:
-        DISPLAY_VERSION: ${{ env.DISPLAY_VERSION }}
+        SEMANTIC_VERSION: ${{ env.DISPLAY_VERSION }}
       run: npm run build:prod
 
     - name: Version Update in Index.html file
-      run: sed -i -e "s/%version%/${{ env.DISPLAY_VERSION }}/" dist/mock-email-client/index.html
+      run: sed -i -e "s/%version%/${{ env.SEMANTIC_VERSION }}/" dist/mock-email-client/index.html
 
     - name: Deploy
       if: success()
