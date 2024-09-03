@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  displayVersion: process.env['DISPLAY_VERSION'] || 'Production',
+  title: 'Testing GHA',
+  displayVersion: 'REPLACE_ME',
 };

@@ -11,9 +11,15 @@ export class NavHeaderComponent {
   @Input() signedIn$ = new BehaviorSubject<boolean | null>(false);
 
   public displayVersion;
+  public title;
 
   constructor() {
     console.log(environment.displayVersion);
+
+    if (environment.production) {
+      console.log('PRODUCTION ENV ', environment.title);
+      this.title = environment.title;
+    }
     this.displayVersion = environment.displayVersion;
   }
 }
