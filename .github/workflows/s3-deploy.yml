@@ -50,9 +50,8 @@ jobs:
         env:
           GIT_TAG: ${{steps.extract_tag.outputs.tag }}
         run: |
-          echo: "${{env.GIT_TAG}}"
           if ["${{env.GIT_TAG}}"]; then
-            echo "Tag ${TAG} exists"
+            echo "Tag ${GIT_TAG} exists"
             echo "DISPLAY_VERSION=${{ env.GIT_TAG }}" >> $GITHUB_ENV
           elif [ "${{ github.event.inputs.Version }}" ]; then
             echo "Tag does not exist, using inputted version number"
