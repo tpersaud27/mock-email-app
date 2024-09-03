@@ -13,6 +13,7 @@ export class NavHeaderComponent {
   public displayVersion;
 
   constructor() {
-    this.displayVersion = environment.DISPLAY_VERSION;
+    console.log(environment.displayVersion);
+    this.displayVersion = environment.displayVersion;
   }
 }
