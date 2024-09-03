@@ -34,15 +34,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 18
-
-    - name: Install dependencies
-      working-directory: ./mock-email-client
-      run: npm install --force
-     
-    - name: Build
-      working-directory: ./mock-email-client
-      run: npm run build:prod
-
+        
     - name: Extract branch name
       shell: bash
       run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
@@ -55,7 +47,16 @@ jobs:
         else
           echo "DISPLAY_VERSION=${{ steps.extract_branch.outputs.branch }}" >> $GITHUB_ENV
         fi
-  
+    - name: Install dependencies
+      working-directory: ./mock-email-client
+      run: npm install --force
+     
+    - name: Build
+      working-directory: ./mock-email-client
+      env:
+        DISPLAY_VERSION: ${{ env.DISPLAY_VERSION }}
+      run: npm run build:prod
+
     - name: Version Update in Index.html file
       run: sed -i -e "s/%version%/${{ env.DISPLAY_VERSION }}/" dist/mock-email-client/index.html
 
