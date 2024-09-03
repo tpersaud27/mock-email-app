@@ -41,14 +41,18 @@ jobs:
         id: extract_branch
 
       - name: Extract Tag Value
-        shell: bash
-        id: extract_tag
+        run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
+
+      - name: Check value
         run: |
-          echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+          echo $GIT_TAG
+
+        # shell: bash
+        # id: extract_tag
+        # run: |
+        #   echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
 
       - name: Get Version Value
-        env:
-          GIT_TAG: ${{steps.extract_tag.outputs.tag }}
         run: |
           if ["${{env.GIT_TAG}}"]; then
             echo "Tag ${GIT_TAG} exists"
