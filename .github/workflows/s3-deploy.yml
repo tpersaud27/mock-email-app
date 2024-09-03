@@ -43,8 +43,8 @@ jobs:
     - name: Extract Tag Value
       id: tags
       run: 
-        echo "TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-        echo "Tag ${TAG} "
+        echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+        echo "Tag ${{ steps.tags.outputs.tag }}"
       env:
         GIT_TAG: ${{ steps.tags.outputs.tag }}
      
