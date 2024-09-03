@@ -40,11 +40,13 @@ jobs:
       run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
       id: extract_branch
 
-    - name: Get Github Tag
-      run:
-        echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
+    - name: Extract Tag Value
+      id: tags
+      run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+      env:
+        GIT_TAG: ${{ steps.tags.outputs.tag }}
      
-    - name: Get version value
+    - name: Get Version Value
       run: |
         echo "Tag ${TAG}"
         if [ $(git tag -l "${TAG}") ]; then
