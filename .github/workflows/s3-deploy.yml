@@ -50,17 +50,17 @@ jobs:
       # env:
       #   GIT_TAG: ${{ steps.tags.outputs.tag }}
     - name: Set env
-      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      run: echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
     - name: Test
       run: |
-        echo $RELEASE_VERSION
-        echo "Tag name ${{ env.RELEASE_VERSION }}" 
+        echo $GIT_TAG
+        echo "Tag name ${{ env.GIT_TAG }}" 
 
      
     - name: Get Version Value
       run: |
         echo "Tag ${GIT_TAG}"
-        if [ $(git tag -l "${env.GIT_TAG}") ]; then
+        if ["${env.GIT_TAG}"]; then
           echo "Tag ${TAG} exists"
           echo "DISPLAY_VERSION=${{ env.GIT_TAG }}" >> $GITHUB_ENV
         elif [ "${{ github.event.inputs.Version }}" ]; then
