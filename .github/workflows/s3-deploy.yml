@@ -59,7 +59,7 @@ jobs:
         run: |
           echo "$PWD"
           sed -i "s|\${TITLE}|${{ env.DISPLAY_VERSION }}|g" src/environments/environment.ts
-          chmod u+x replace-env.sh
+          chmod u+x src/replace-env.sh
           bash replace-env.sh
 
           
