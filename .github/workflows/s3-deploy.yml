@@ -56,11 +56,7 @@ jobs:
       - name: Replace environment variables
         working-directory: ./mock-email-client
         shell: bash
-        env: 
-          DISPLAY_VERSION: ${{ env.DISPLAY_VERSION }}
         run: |
-          echo "$PWD"
-          ls -a
           sed -i "s|\${TITLE}|${{ env.DISPLAY_VERSION }}|g" src/environments/environment.ts
           bash src/replace.env.sh 
           
