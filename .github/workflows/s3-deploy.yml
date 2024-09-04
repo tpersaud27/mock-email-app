@@ -54,7 +54,7 @@ jobs:
         run: npm install --force
 
       - name: Replace environment variables
-        working-directory: ./github
+        working-directory: ../github
         shell: bash
         run: |
           bash scripts/replace.env.sh 
