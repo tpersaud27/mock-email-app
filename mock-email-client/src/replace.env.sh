@@ -8,4 +8,5 @@ echo "Current directory: $(pwd)"
 echo "Current date and time: $(date)"
 
 # Replace display version environment variable
-sed -i "s|\${DISPLAY_VERSION}|${{ env.DISPLAY_VERSION }}|g" src/environments/environment.ts
+echo "DISPLAY_VERSION is: $DISPLAY_VERSION"
+sed -i "s|\${DISPLAY_VERSION}|${{ DISPLAY_VERSION }}|g" src/environments/environment.ts
