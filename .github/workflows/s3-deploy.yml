@@ -57,11 +57,8 @@ jobs:
         working-directory: ./mock-email-client
         shell: bash
         run: |
-          sed -i "s|\${TITLE}|${{ env.DISPLAY_VERSION }}|g" src/environments/environment.ts
           bash src/replace.env.sh 
-          
-        # sed -i "s|\${DISPLAY_VERSION}|${{ env.DISPLAY_VERSION }}|g" src/environments/environment.ts
-
+        
       - name: Build
         working-directory: ./mock-email-client
         run: npm run build:prod
