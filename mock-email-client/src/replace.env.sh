@@ -9,4 +9,4 @@ echo "Current date and time: $(date)"
 
 # Replace display version environment variable
 echo "DISPLAY_VERSION is: $DISPLAY_VERSION"
-sed -i "s|\${DISPLAY_VERSION}|${{ DISPLAY_VERSION }}|g" src/environments/environment.ts
+sed -i "s|\${DISPLAY_VERSION}|${{ DISPLAY_VERSION }}|g" ./environments/environment.ts
