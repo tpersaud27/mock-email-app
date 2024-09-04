@@ -54,10 +54,10 @@ jobs:
         run: npm install --force
 
       - name: Replace environment variables
-        working-directory: ./mock-email-client
+        working-directory: ./github
         shell: bash
         run: |
-          bash src/replace.env.sh 
+          bash scripts/replace.env.sh 
         
       - name: Build
         working-directory: ./mock-email-client
