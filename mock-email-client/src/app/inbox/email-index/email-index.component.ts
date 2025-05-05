@@ -8,6 +8,8 @@ import { EmailSummary } from 'src/app/auth/_interfaces/emailInterface';
   styleUrls: ['./email-index.component.css'],
 })
 export class EmailIndexComponent implements OnInit {
+  public emails: EmailSummary[] = [];
+
   constructor(private emailService: EmailService) {}
 
   ngOnInit() {
@@ -16,10 +18,10 @@ export class EmailIndexComponent implements OnInit {
 
   public getEmails() {
     this.emailService.getEmails().subscribe({
-      next: (response: EmailSummary[]) => {
-        console.log('response emails ', response);
+      next: (emails: EmailSummary[]) => {
+        this.emails = emails;
       },
-      error: (error: any) => {
+      error: ({ error }) => {
         console.log('Error getting emails ', error);
       },
     });
