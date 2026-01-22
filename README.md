@@ -17,6 +17,10 @@
 -- Email-Index: This is the list of emails a user receives
 -- Email-Show: This is where the user will see the email clicked on
 
+## Styling
+- Semantic UI
+- Angular Material
+
 ## API Information
 
 URL: <https://api.angular-email.com>
