@@ -4,12 +4,12 @@
   <div class="ui pointing red basic label" *ngIf="showErrors()">
     <p *ngIf="control.errors.required">Input is required</p>
     <p *ngIf="control.errors.minlength">
-      Characters entered are {{ control.errors.minlength.actualLength }}.
-      Minlength is {{ control.errors.minlength.requiredLength }}
+      Characters entered are {{ control.errors.minlength.actualLength }}. Minlength is
+      {{ control.errors.minlength.requiredLength }}
     </p>
     <p *ngIf="control.errors.maxlength">
-      Characters entered are {{ control.errors.maxlength.actualLength }}.
-      Maxlength is {{ control.errors.maxlength.requiredLength }}
+      Characters entered are {{ control.errors.maxlength.actualLength }}. Maxlength is
+      {{ control.errors.maxlength.requiredLength }}
     </p>
     <p *ngIf="control.errors.pattern">Invalid format</p>
     <!-- Note: The erros below come from the observable value not the form control itself -->
